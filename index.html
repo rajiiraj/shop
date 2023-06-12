@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>API Example</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  <h1>Products</h1>
+  <ul id="product-list"></ul>
+
+  <script>
+    // Fetch data from the API
+    fetch('https://fakestoreapi.com/products')
+      .then(response => response.json())
+      .then(data => {
+        // Process the returned data and update the HTML
+        const productList = document.getElementById('product-list');
+
+        data.forEach(product => {
+          const listItem = document.createElement('li');
+          listItem.innerHTML = `
+            <img class="product-image" src="${product.image}" alt="${product.title}">
+            <div class="product-details">
+              <h3 class="product-title">${product.title}</h3>
+              <p class="product-category">${product.category}</p>
+              <p class="product-price">$${product.price}</p>
+            </div>
+          `;
+          productList.appendChild(listItem);
+        });
+      })
+      .catch(error => {
+        console.log('Error:', error);
+      });
+  </script>
+</body>
+</html>
